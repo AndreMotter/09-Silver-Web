@@ -5,9 +5,8 @@ import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'fin-pessoa', component: FinPessoaComponent }
+  { path: 'fin-pessoa/cadastro', component: FinPessoaComponent }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
