@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="header">
+    <h1>Listagem de Pessoas</h1>
+  </div>
+
+  <mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="pes_codigo">
+      <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_codigo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pes_nome">
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_nome}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pes_cpf">
+      <mat-header-cell *matHeaderCellDef> CPF </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_cpf}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pes_email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pes_ativo">
+      <mat-header-cell *matHeaderCellDef> Ativo </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_ativo ? 'Sim' : 'Não'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pes_data_nascimento">
+      <mat-header-cell *matHeaderCellDef> Data de Nascimento </mat-header-cell>
+      <mat-cell *matCellDef="let pessoa"> {{pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions"> 
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let pessoa">
+        <button mat-icon-button color="accent" (click)="editarPessoa(pessoa.pes_codigo)">
+          <i class="fa fa-pencil" style="color: blue;"></i>
+        </button>
+        <button mat-icon-button color="warn" (click)="excluirPessoa(pessoa.pes_codigo)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns.concat('actions')"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns.concat('actions');"></mat-row>
+  </mat-table>
+</div>

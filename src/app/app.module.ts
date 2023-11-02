@@ -22,12 +22,14 @@ import { HttpClientModule } from '@angular/common/http';
 //Componentes
 import { HomeComponent } from './components/home/home.component';
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
+import { FinPessoaListaComponent } from './components/fin-pessoa-lista/fin-pessoa-lista.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FinPessoaComponent
+    FinPessoaComponent,
+    FinPessoaListaComponent
   ],
   imports: [
     BrowserModule,

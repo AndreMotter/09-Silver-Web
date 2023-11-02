@@ -30,10 +30,11 @@ export class FinPessoaComponent {
     });
   }
 
-  onSubmit() {
+  salvar() {
     debugger
     if (this.finPessoaForm.valid) {
-      this.finPessoaService.createFinPessoa(this.finPessoaForm.value).subscribe(data => {
+      this.finPessoaService.salvarFinPessoa(this.finPessoaForm.value).subscribe(data => {
+        debugger
         this.router.navigate(['/fin-pessoa']);
       });
     }
