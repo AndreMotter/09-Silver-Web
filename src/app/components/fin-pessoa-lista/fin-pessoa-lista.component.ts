@@ -8,8 +8,7 @@ import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 })
 export class FinPessoaListaComponent {
 
-  dataSource!: any[];
-  displayedColumns: string[] = ['pes_codigo', 'pes_nome', 'pes_cpf', 'pes_email', 'pes_ativo', 'pes_data_nascimento'];
+  pessoas!: any[];
 
   constructor(
     private finPessoaService: FinPessoaService,
@@ -21,13 +20,14 @@ export class FinPessoaListaComponent {
 
   listarPessoas(): void {
     this.finPessoaService.listarFinPessoas().subscribe(
-      data => {
-        this.dataSource = (<any>data).data;
-      },
-      error => {
-        console.error(error)
-      }
-    );
+      {
+        next: (data) => {
+          this.pessoas = data.data;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
   
   adicionarPessoa(): void {
@@ -35,13 +35,29 @@ export class FinPessoaListaComponent {
   }
 
   editarPessoa(codigo: number) {
-    console.log("Editar pessoa com código:", codigo);
-    // Lógica para edição
+    // this.finPessoaService.deletarFinPessoa(codigo).subscribe(
+    //   {
+    //     next: (data) => {
+    //       console.log(data);
+    //     },
+    //     error: (error) => {
+    //       console.error(error);
+    //     },
+    //   });
   }
   
   excluirPessoa(codigo: number) {
-    console.log("Excluir pessoa com código:", codigo);
-    // Lógica para exclusão
+    this.finPessoaService.deletarFinPessoa(codigo).subscribe(
+      {
+        next: (data) => {
+          if(data.success == "true"){
+            this.listarPessoas();
+          }    
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
   
 }

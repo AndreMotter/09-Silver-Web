@@ -1,47 +1,11 @@
-<form [formGroup]="finPessoaForm" (ngSubmit)="salvar()" class="fin-pessoa-form">
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Nome</mat-label>
-      <input matInput formControlName="pes_nome" required>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Login</mat-label>
-      <input matInput formControlName="pes_login" required>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Senha</mat-label>
-      <input matInput formControlName="pes_senha" required type="password">
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>CPF</mat-label>
-      <input matInput formControlName="pes_cpf" required>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="pes_email" required>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-checkbox formControlName="pes_ativo">Ativo</mat-checkbox>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Data de Nascimento</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="pes_data_nascimento" required>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
 
-  <div class="button-row">
-    <button mat-button type="submit" [disabled]="finPessoaForm.invalid">Salvar</button>
-  </div>
-</form>
+<div class="p-ml-auto">
+  <button pButton type="button" label="Adicionar Pessoa" icon="pi pi-plus" (click)="abrirModal()"></button>
+</div>
+
+<p-dialog header="Incluir/Alterar Pessoa" [(visible)]="displayModal" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+
+</p-dialog>
+
+
+

@@ -11,23 +11,23 @@ export class FinPessoaService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinPessoas(): Observable<FinPessoa[]> {
-    return this.http.get<FinPessoa[]>(`${environment.apiUrl}/Fin_Pessoa/Lista`);
+  listarFinPessoas(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Pessoa/Lista`);
   }
 
-  buscarPorIdFinPessoa(id: number): Observable<FinPessoa> {
-    return this.http.get<FinPessoa>(`${environment.apiUrl}/Fin_Pessoa/BuscaPorId?id=${id}`);
+  buscarPorIdFinPessoa(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Pessoa/BuscaPorId?id=${id}`);
   }
 
-  salvarFinPessoa(finPessoa: FinPessoa): Observable<FinPessoa> {
-    return this.http.post<FinPessoa>(`${environment.apiUrl}/Fin_Pessoa/Salvar`, finPessoa);
+  salvarFinPessoa(finPessoa: FinPessoa): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/Fin_Pessoa/Salvar`, finPessoa);
   }
 
-  alterarFinPessoa(finPessoa: FinPessoa): Observable<FinPessoa> {
-    return this.http.put<FinPessoa>(`${environment.apiUrl}/${finPessoa.pes_codigo}`, finPessoa);
+  alterarFinPessoa(finPessoa: FinPessoa): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/${finPessoa.pes_codigo}`, finPessoa);
   }
 
-  deletarFinPessoa(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/Fin_Pessoa/Remover?id=${id}`);
+  deletarFinPessoa(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/Fin_Pessoa/Remover?id=${id}`);
   }
 }

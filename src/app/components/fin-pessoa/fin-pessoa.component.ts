@@ -11,6 +11,7 @@ import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 export class FinPessoaComponent {
 
   finPessoaForm!: FormGroup;
+  displayModal: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +31,13 @@ export class FinPessoaComponent {
     });
   }
 
+  abrirModal() {
+    this.displayModal = true;
+  }
+
+  fecharModal() {
+    this.displayModal = false;
+  }
   salvar() {
     debugger
     if (this.finPessoaForm.valid) {
