@@ -24,20 +24,17 @@ import { RouterModule } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 //Componentes
 import { HomeComponent } from './components/home/home.component';
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
-import { FinPessoaListaComponent } from './components/fin-pessoa-lista/fin-pessoa-lista.component';
-import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FinPessoaComponent,
-    FinPessoaListaComponent,
-    LayoutComponent
+    FinPessoaComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +57,8 @@ import { LayoutComponent } from './components/layout/layout.component';
     RouterModule,
     MenubarModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

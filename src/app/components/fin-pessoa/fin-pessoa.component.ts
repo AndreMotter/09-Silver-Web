@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FinPessoa } from 'src/app/models/fin-pessoa';
 import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 
 @Component({
@@ -10,25 +9,53 @@ import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 })
 export class FinPessoaComponent {
 
-  finPessoaForm!: FormGroup;
+  pessoas!: any[]; 
+  pessoa: any = {}; 
   displayModal: boolean = false;
-
+  
   constructor(
-    private fb: FormBuilder,
     private finPessoaService: FinPessoaService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.finPessoaForm = this.fb.group({
-      pes_nome: ['', Validators.required],
-      pes_login: ['', Validators.required],
-      pes_senha: ['', Validators.required],
-      pes_cpf: ['', Validators.required],
-      pes_email: ['', [Validators.required, Validators.email]],
-      pes_ativo: [true, Validators.required],
-      pes_data_nascimento: ['', Validators.required]
-    });
+     this.listarPessoas();
+  }
+
+  listarPessoas(): void {
+    this.finPessoaService.listarFinPessoas().subscribe(
+      {
+        next: (response) => {
+          this.pessoas = response.data;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+  }
+
+  editar(codigo: number) {
+    this.finPessoaService.buscarPorIdFinPessoa(codigo).subscribe(
+      {
+        next: (response) => {
+          this.pessoa = response.data;
+          this.abrirModal()
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+  }
+  
+  excluir(codigo: number) {
+    this.finPessoaService.deletarFinPessoa(codigo).subscribe(
+      {
+        next: () => {
+          this.listarPessoas();
+        },
+        error: (error) => { 
+          console.error(error);
+        },
+      });
   }
 
   abrirModal() {
@@ -38,13 +65,16 @@ export class FinPessoaComponent {
   fecharModal() {
     this.displayModal = false;
   }
+  
   salvar() {
-    debugger
-    if (this.finPessoaForm.valid) {
-      this.finPessoaService.salvarFinPessoa(this.finPessoaForm.value).subscribe(data => {
-        debugger
-        this.router.navigate(['/fin-pessoa']);
-      });
-    }
+    this.finPessoaService.salvarFinPessoa(this.pessoa).subscribe({
+      next: () => {
+        this.fecharModal();
+        this.listarPessoas();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }
