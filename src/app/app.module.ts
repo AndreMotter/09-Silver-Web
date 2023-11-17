@@ -27,11 +27,15 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 
+
 //Componentes
 import { HomeComponent } from './components/home/home.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
 import { FinCategoriaComponent } from './components/fin-categoria/fin-categoria.component';
 import { FinMovimentacaoComponent } from './components/fin-movimentacao/fin-movimentacao.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +43,9 @@ import { FinMovimentacaoComponent } from './components/fin-movimentacao/fin-movi
     HomeComponent,
     FinPessoaComponent,
     FinCategoriaComponent,
-    FinMovimentacaoComponent
+    FinMovimentacaoComponent,
+    SidebarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
