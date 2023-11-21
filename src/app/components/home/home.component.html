@@ -1,3 +1,24 @@
-<h1>Home</h1>
-<a routerLink="/fin-pessoa">Pessoas</a><br>
-<a routerLink="/fin-categoria">Categorias</a>
+<div class="p-grid">
+    <div class="p-col-6">
+      <p-card [ngStyle]="{'border': '1px solid #b3c6ff', 'background-color': '#ccddff'}">
+        <ng-template pTemplate="content">
+          <div class="p-d-flex p-ai-center p-jc-center p-flex-column">
+            <i class="pi pi-users" style="font-size: 2em; color: #003366;"></i>
+            <a routerLink="/fin-pessoa" style="color: #003366; text-decoration: none; margin-top: 1em;">
+              Pessoas
+            </a>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    <p-card [ngStyle]="{'border': '1px solid #b3c6ff', 'background-color': '#ccddff'}">
+        <ng-template pTemplate="content">
+          <div class="p-d-flex p-ai-center p-jc-center p-flex-column">
+            <i class="pi pi-users" style="font-size: 2em; color: #003366;"></i>
+            <a routerLink="/fin-pessoa" style="color: #003366; text-decoration: none; margin-top: 1em;">
+              Pessoas
+            </a>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>

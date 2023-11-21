@@ -26,11 +26,10 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { CardModule } from 'primeng/card';
 
 //Componentes
 import { HomeComponent } from './components/home/home.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
 import { FinCategoriaComponent } from './components/fin-categoria/fin-categoria.component';
 import { FinMovimentacaoComponent } from './components/fin-movimentacao/fin-movimentacao.component';
@@ -41,10 +40,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    FinPessoaComponent,
+    FinPessoaComponent, 
     FinCategoriaComponent,
     FinMovimentacaoComponent,
-    SidebarComponent,
     ToolbarComponent
   ],
   imports: [
@@ -70,7 +68,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     AvatarModule,
     AvatarGroupModule,
     ProgressSpinnerModule,
-    DropdownModule
+    DropdownModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
