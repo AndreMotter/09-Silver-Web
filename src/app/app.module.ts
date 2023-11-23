@@ -28,23 +28,30 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ChartModule } from 'primeng/chart';
 
 //Componentes
-import { HomeComponent } from './components/home/home.component';
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
 import { FinCategoriaComponent } from './components/fin-categoria/fin-categoria.component';
 import { FinMovimentacaoComponent } from './components/fin-movimentacao/fin-movimentacao.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FinHomeGraficoPeriodoComponent } from './components/fin-home-grafico-periodo/fin-home-grafico-periodo.component';
+import { FinHomeComponent } from './components/fin-home/fin-home.component';
+import { FinToolbarComponent } from './components/fin-toolbar/fin-toolbar.component';
+import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anual/fin-home-grafico-anual.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    FinHomeComponent,
     FinPessoaComponent, 
     FinCategoriaComponent,
     FinMovimentacaoComponent,
-    ToolbarComponent
+    FinHomeGraficoPeriodoComponent,
+    FinHomeComponent,
+    FinToolbarComponent,
+    FinHomeGraficoAnualComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +60,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ChartModule,
     ButtonModule,
     InputTextModule,
     PasswordModule,
@@ -71,7 +79,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     ProgressSpinnerModule,
     DropdownModule,
     CardModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FieldsetModule
   ],
   providers: [],
   bootstrap: [AppComponent]
