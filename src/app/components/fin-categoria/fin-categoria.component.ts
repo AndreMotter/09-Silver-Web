@@ -70,7 +70,6 @@ export class FinCategoriaComponent {
   }
   
   salvar() {
-    debugger
     this.finCategoriaService.salvarFinCategoria(this.categoria).subscribe({
       next: () => {
         this.fecharModal();

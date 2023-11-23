@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FinPessoa } from 'src/app/models/fin-pessoa';
 import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 
 @Component({

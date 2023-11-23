@@ -27,6 +27,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 //Componentes
 import { HomeComponent } from './components/home/home.component';
@@ -69,7 +70,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     AvatarGroupModule,
     ProgressSpinnerModule,
     DropdownModule,
-    CardModule
+    CardModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
