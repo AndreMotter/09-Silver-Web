@@ -17,19 +17,19 @@ export class FinHomeGraficoAnualComponent {
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
       
       this.data = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
           datasets: [
               {
-                  label: 'My First dataset',
-                  backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                  borderColor: documentStyle.getPropertyValue('--blue-500'),
-                  data: [65, 59, 80, 81, 56, 55, 40]
+                  label: 'Receitas',
+                  backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                  borderColor: documentStyle.getPropertyValue('--green-400'),
+                  data: [65, 59, 80, 81, 56, 55, 40, 30, 21, 26, 80, 43]
               },
               {
-                  label: 'My Second dataset',
-                  backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-                  borderColor: documentStyle.getPropertyValue('--pink-500'),
-                  data: [28, 48, 40, 19, 86, 27, 90]
+                  label: 'Despesas',
+                  backgroundColor: documentStyle.getPropertyValue('--red-500'),
+                  borderColor: documentStyle.getPropertyValue('--red-400'),
+                  data: [28, 48, 40, 19, 86, 27, 90, 30, 21, 26, 80, 43]
               }
           ]
       };
