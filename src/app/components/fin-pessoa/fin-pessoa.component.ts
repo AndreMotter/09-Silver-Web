@@ -11,7 +11,10 @@ export class FinPessoaComponent {
   pessoas!: any[]; 
   pessoa: any = {}; 
   displayModal: boolean = false;
-  
+
+  //filtros
+  fil_nome!: string;
+
   constructor(
     private finPessoaService: FinPessoaService,
   ) { }
@@ -21,7 +24,8 @@ export class FinPessoaComponent {
   }
 
   listarPessoas(): void {
-    this.finPessoaService.listarFinPessoas().subscribe(
+    debugger
+    this.finPessoaService.listarFinPessoas(this.fil_nome).subscribe(
       {
         next: (response) => {
           this.pessoas = response.data;

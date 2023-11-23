@@ -30,6 +30,7 @@ import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ChartModule } from 'primeng/chart';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 //Componentes
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
@@ -56,6 +57,7 @@ import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anua
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SelectButtonModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

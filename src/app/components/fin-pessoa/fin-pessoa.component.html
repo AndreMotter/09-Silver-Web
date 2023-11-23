@@ -1,47 +1,59 @@
-<div class="header">
-  <h1>Listagem de Pessoas</h1>
-</div>
-<div style="margin-bottom: 10px;">
-  <button pButton type="button" label="Adicionar Pessoa" icon="pi pi-plus" (click)="abrirModal()"></button>
-</div>
+<div style="margin-top: 20px;"></div>
+<p-fieldset icon="pi pi-pencil" legend="Gerenciamento de Pessoas">
 
-<div class="card">
-  <p-table [value]="pessoas" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Código</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>Email</th>
-        <th>Ativo</th>
-        <th>Data de Nascimento</th>
-        <th>Ações</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-pessoa>
-      <tr>
-        <td>{{ pessoa.pes_codigo }}</td>
-        <td>{{ pessoa.pes_nome }}</td>
-        <td>{{ pessoa.pes_cpf }}</td>
-        <td>{{ pessoa.pes_email }}</td>
-        <td>{{ pessoa.pes_ativo ? 'Sim' : 'Não'}}</td>
-        <td>{{ pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}}</td>
-        <td>
-          <button pButton type="button" icon="pi pi-pencil" label="Editar"
-            class="p-button-rounded p-button-success p-mr-3" (click)="editar(pessoa.pes_codigo)"></button>
-          <button pButton type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger"
-            (click)="excluir(pessoa.pes_codigo)"></button>
-        </td>
+  <div class="grid">
+    <div class="col-12">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input htmlFor="Nome" type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_nome" />
+      </span>
+    </div>
+  </div>
 
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="empty">
-      <tr>
-        <td colspan="6">Nenhum registro encontrado</td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+  <div class="grid">
+    <div class="col-12 flex justify-content-end">
+      <button pButton type="button" label="Adicionar Pessoa" icon="pi pi-plus" (click)="abrirModal()"></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <p-table [value]="pessoas" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Email</th>
+          <th>Ativo</th>
+          <th>Data de Nascimento</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-pessoa>
+        <tr>
+          <td>{{ pessoa.pes_codigo }}</td>
+          <td>{{ pessoa.pes_nome }}</td>
+          <td>{{ pessoa.pes_cpf }}</td>
+          <td>{{ pessoa.pes_email }}</td>
+          <td>{{ pessoa.pes_ativo ? 'Sim' : 'Não'}}</td>
+          <td>{{ pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <button pButton type="button" icon="pi pi-pencil" label="Editar"
+              class="p-button-rounded p-button-success p-mr-3" (click)="editar(pessoa.pes_codigo)"></button>
+            <button pButton type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger"
+              (click)="excluir(pessoa.pes_codigo)"></button>
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="empty">
+        <tr>
+          <td colspan="6">Nenhum registro encontrado</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-fieldset>
 
 <p-dialog header="Incluir/Alterar Pessoa" [(visible)]="displayModal" [modal]="true" [responsive]="true"
   [style]="{width: '50vw'}">
