@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FinCategoria } from '../models/fin-categoria';
@@ -11,8 +11,12 @@ export class FinCategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinCategorias(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/Fin_Categoria/Lista`);
+  listarFinCategorias(cat_sigla: string, first: number, rows: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('cat_sigla', cat_sigla || '');
+    params = params.set('first', first);
+    params = params.set('rows', rows);
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Categoria/Lista`, {params});
   }
 
   buscarPorIdFinCategoria(id: number): Observable<any> {

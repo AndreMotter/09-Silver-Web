@@ -14,18 +14,26 @@ export class FinCategoriaComponent {
     { name: 'Despesas', code: 0 },
     { name: 'Receitas', code: 1 }
   ];
-  displayModal: boolean = false;
 
   constructor(
     private finCategoriaService: FinCategoriaService,
   ) { }
 
+  first: number = 0;
+  rows: number = 10;
+  onPageChange(event: any) {
+      this.first = event.first;
+      this.rows = event.rows;
+      this.listarCategorias();
+  }
+
   ngOnInit(): void {
     this.listarCategorias();
- }
+  }
 
+  cat_sigla!: string;
   listarCategorias(): void {
-    this.finCategoriaService.listarFinCategorias().subscribe(
+    this.finCategoriaService.listarFinCategorias(this.cat_sigla, this.first, this.rows).subscribe(
       {
         next: (response) => {
           this.categorias = response.data;
@@ -61,6 +69,7 @@ export class FinCategoriaComponent {
       });
   }
 
+  displayModal: boolean = false;
   abrirModal() {
     this.displayModal = true;
   }

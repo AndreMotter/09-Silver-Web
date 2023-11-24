@@ -1,28 +1,30 @@
-<div class="header">
-    <h1>Movimentações</h1>
-</div>
-
-<div class="flex flex-wrap gap-3">
-  <div class="flex align-items-center">
+<div style="margin-top: 20px;"></div>
+<p-fieldset legend="Gerenciamento de Movimentações">
+  <div style="margin-top: 10px;"></div>
+  <div class="flex flex-wrap gap-3">
+    <div class="flex align-items-center">
       <p-radioButton value=0 [(ngModel)]="filtro_mov_tipo" inputId="mov-tipo-todos"></p-radioButton>
       <label class="ml-2">Todas</label>
-  </div>
+    </div>
 
-  <div class="flex align-items-center">
+    <div class="flex align-items-center">
       <p-radioButton value=1 [(ngModel)]="filtro_mov_tipo" inputId="mov-tipo-despesas"></p-radioButton>
       <label class="ml-2">Despesas</label>
-  </div>
+    </div>
 
-  <div class="flex align-items-center">
+    <div class="flex align-items-center">
       <p-radioButton value=2 [(ngModel)]="filtro_mov_tipo" inputId="mov-tipo-receitas"></p-radioButton>
       <label class="ml-2">Receitas</label>
+    </div>
   </div>
-</div>
 
-<div style="margin-bottom: 10px;">
-    <button pButton type="button" label="Adicionar Movimento" icon="pi pi-plus" (click)="abrirModal()"></button>
-</div>
-<div class="card">
+  <div class="grid">
+    <div class="col-12 flex justify-content-end">
+      <button pButton type="button" label="Adicionar Movimento" icon="pi pi-plus" (click)="abrirModal()"></button>
+    </div>
+  </div>
+
+  <div class="card">
     <p-table [value]="movimentacao" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
@@ -40,10 +42,12 @@
           <td>{{ movimentacao.mov_data }}</td>
           <td>{{ movimentacao.mov_tipo == 0 ? 'Despesa' : 'Receita' }}</td>
           <td>
-            <button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-rounded p-button-success p-mr-3" (click)="editar(movimentacao.cat_codigo)"></button>
-            <button pButton type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger" (click)="excluir(movimentacao.mov_codigo)"></button>
+            <button pButton type="button" icon="pi pi-pencil" label="Editar"
+              class="p-button-rounded p-button-success p-mr-3" (click)="editar(movimentacao.cat_codigo)"></button>
+            <button pButton type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger"
+              (click)="excluir(movimentacao.mov_codigo)"></button>
           </td>
-  
+
         </tr>
       </ng-template>
       <ng-template pTemplate="empty">
@@ -53,3 +57,4 @@
       </ng-template>
     </p-table>
   </div>
+</p-fieldset>

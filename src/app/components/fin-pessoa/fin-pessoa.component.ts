@@ -10,7 +10,6 @@ export class FinPessoaComponent {
 
   pessoas!: any[]; 
   pessoa: any = {}; 
-  displayModal: boolean = false;
 
   //filtros
   fil_nome!: string;
@@ -24,7 +23,6 @@ export class FinPessoaComponent {
   }
 
   listarPessoas(): void {
-    debugger
     this.finPessoaService.listarFinPessoas(this.fil_nome).subscribe(
       {
         next: (response) => {
@@ -61,6 +59,7 @@ export class FinPessoaComponent {
       });
   }
 
+  displayModal: boolean = false;
   abrirModal() {
     this.displayModal = true;
   }

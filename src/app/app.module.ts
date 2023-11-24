@@ -31,6 +31,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ChartModule } from 'primeng/chart';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { PaginatorModule } from 'primeng/paginator';
 
 //Componentes
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
@@ -62,6 +63,7 @@ import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anua
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PaginatorModule,
     ChartModule,
     ButtonModule,
     InputTextModule,

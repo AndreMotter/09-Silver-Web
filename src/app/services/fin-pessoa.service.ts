@@ -12,7 +12,6 @@ export class FinPessoaService {
   constructor(private http: HttpClient) { }
 
   listarFinPessoas(fil_nome: string): Observable<any> {
-    debugger
     let params = new HttpParams();
     params = params.set('pessoa', fil_nome || '');
     params = params.set('status', 0);
