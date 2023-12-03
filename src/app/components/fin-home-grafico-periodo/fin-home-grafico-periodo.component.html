@@ -1,4 +1,7 @@
 <p><strong>Resumo Mensal</strong></p>
+<div *ngIf="loading" class="p-d-flex p-jc-center p-ai-center" style="text-align: center;">
+    <p-progressSpinner></p-progressSpinner>
+  </div>    
 <div class="card flex justify-content-center">
-    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+    <p-chart *ngIf="!loading" type="pie" [data]="data" [options]="options"></p-chart>
 </div>

@@ -33,4 +33,9 @@ export class FinMovimentacaoService {
   deletarFinMovimentacao(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/Fin_Movimentacao/Remover?id=${id}`);
   }
+
+  resumoMensalFinMovimentacao(): Observable<any> {
+    let params = new HttpParams();
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/ResumoMensal`,  { params });
+  }
 }

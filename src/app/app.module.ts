@@ -32,6 +32,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { ChartModule } from 'primeng/chart';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { PaginatorModule } from 'primeng/paginator';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 //Componentes
 import { FinPessoaComponent } from './components/fin-pessoa/fin-pessoa.component';
@@ -41,6 +42,7 @@ import { FinHomeGraficoPeriodoComponent } from './components/fin-home-grafico-pe
 import { FinHomeComponent } from './components/fin-home/fin-home.component';
 import { FinToolbarComponent } from './components/fin-toolbar/fin-toolbar.component';
 import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anual/fin-home-grafico-anual.component';
+import { FinLoginComponent } from './components/fin-login/fin-login.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anua
     FinHomeGraficoPeriodoComponent,
     FinHomeComponent,
     FinToolbarComponent,
-    FinHomeGraficoAnualComponent
+    FinHomeGraficoAnualComponent,
+    FinLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anua
     DropdownModule,
     CardModule,
     RadioButtonModule,
-    FieldsetModule
+    FieldsetModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

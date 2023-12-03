@@ -1,11 +1,17 @@
 <div style="margin-top: 20px;"></div>
 <p-fieldset icon="pi pi-pencil" legend="Gerenciamento de Pessoas">
-
+  
   <div class="grid">
-    <div class="col-12">
+    <div class="col-2">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_nome" />
+        <input placeholder="Nome" type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_nome" />
+      </span>
+    </div>
+    <div class="col-2">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input placeholder="Cpf/Cnpj" type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_cpf" />
       </span>
     </div>
   </div>
@@ -17,7 +23,10 @@
   </div>
 
   <div class="card">
-    <p-table [value]="pessoas" [tableStyle]="{ 'min-width': '50rem' }">
+    <div *ngIf="loading" class="p-d-flex p-jc-center p-ai-center" style="text-align: center;">
+      <p-progressSpinner></p-progressSpinner>
+    </div>    
+    <p-table *ngIf="!loading" [value]="pessoas" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
           <th>Código</th>
@@ -38,20 +47,15 @@
           <td>{{ pessoa.pes_ativo ? 'Sim' : 'Não'}}</td>
           <td>{{ pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}}</td>
           <td>
-            <button pButton type="button" icon="pi pi-pencil" label="Editar"
-              class="p-button-rounded p-button-success p-mr-3" (click)="editar(pessoa.pes_codigo)"></button>
-            <button pButton type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger"
-              (click)="excluir(pessoa.pes_codigo)"></button>
+            <button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-rounded p-button-success p-mr-3" (click)="editar(pessoa.pes_codigo)"></button>
+            <button pButton style="margin-left: 10px;" type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger" (click)="confirmarExclusao(pessoa.pes_codigo)"></button>
           </td>
-
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="empty">
-        <tr>
-          <td colspan="6">Nenhum registro encontrado</td>
         </tr>
       </ng-template>
     </p-table>
+    <div class="card flex justify-content-left">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 50, 100]"></p-paginator>
+    </div>
   </div>
 </p-fieldset>
 
@@ -79,17 +83,27 @@
         <label for="email">Email</label>
         <input type="email" id="email" pInputText [(ngModel)]="pessoa.pes_email" name="email" required />
       </div>
-      <div class="p-field-checkbox">
-        <p-checkbox [binary]="true" [(ngModel)]="pessoa.pes_ativo" name="ativo"></p-checkbox>
-        <label for="ativo">Ativo</label>
-      </div>
-      <div class="p-field">
-        <label for="dataNascimento">Data de Nascimento</label>
-        <p-calendar [(ngModel)]="pessoa.pes_data_nascimento" name="dataNascimento" [showIcon]="true"></p-calendar>
-      </div>
+      <div class="p-formgrid p-grid">
+        <div class="p-field-checkbox p-col-12 p-md-6" style="margin-top: 10px;">
+          <p-checkbox [binary]="true" [(ngModel)]="pessoa.pes_ativo" name="ativo"></p-checkbox>
+          <label for="ativo">Ativo</label>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="dataNascimento">Data de Nascimento</label>
+          <p-calendar [(ngModel)]="pessoa.pes_data_nascimento" name="dataNascimento" [style]="{maxWidth: '250px'}" [showIcon]="true"></p-calendar>
+        </div>
+      </div>      
     </div>
     <p-footer>
-      <button type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
+      <button style="margin-top: 10px;" type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
     </p-footer>
   </form>
+</p-dialog>
+
+<p-dialog header="Confirmação de Exclusão" [(visible)]="displayConfirmation" [modal]="true" [style]="{width: '50vw'}">
+  <p>Tem certeza que deseja excluir este registro?</p>
+  <p-footer>
+    <button type="button" pButton label="Sim" (click)="excluir()" class="p-button-danger"></button>
+    <button type="button" pButton label="Não" (click)="displayConfirmation=false" class="ui-button-secondary"></button>
+  </p-footer>
 </p-dialog>

@@ -11,10 +11,13 @@ export class FinPessoaService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinPessoas(fil_nome: string): Observable<any> {
+  listarFinPessoas(fil_nome: string, fil_cpf: string, fil_ativo: number,first: number, rows: number): Observable<any> {
     let params = new HttpParams();
     params = params.set('pessoa', fil_nome || '');
-    params = params.set('status', 0);
+    params = params.set('cpf', fil_cpf || '');
+    params = params.set('status', fil_ativo || 0);
+    params = params.set('first', first);
+    params = params.set('rows', rows);
     return this.http.get<any>(`${environment.apiUrl}/Fin_Pessoa/Lista`, {params});
   }
 
