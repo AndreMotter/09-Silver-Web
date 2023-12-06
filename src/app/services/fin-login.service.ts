@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FinLogin } from '../models/fin-login';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -11,8 +10,32 @@ export class FinLoginService {
 
   constructor(private http: HttpClient) { }
 
+  private autenticado: boolean = false;
+  private dadosUsuario: any = {}; 
+
   login(finLogin: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/Login/Login`, finLogin);
+    return this.http.post<any>(`${environment.apiUrl}/Login/Logar`, finLogin);
+  }
+
+  getUserData(): any { 
+    return this.dadosUsuario;
+  }
+
+  setUserData(dadosUsuario: any): void { 
+     this.dadosUsuario = dadosUsuario;
+  }
+
+  logout(): void {
+    this.autenticado = false;
+    this.dadosUsuario = {};
+  }
+
+  setLoggedIn(): void { 
+     this.autenticado = true;
+  }
+
+  isLoggedIn(): boolean {
+    return this.autenticado;
   }
 
 }

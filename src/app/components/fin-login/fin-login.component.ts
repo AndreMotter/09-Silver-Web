@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FinLoginService } from 'src/app/services/fin-login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fin-login',
@@ -8,42 +9,37 @@ import { FinLoginService } from 'src/app/services/fin-login.service';
 })
 export class FinLoginComponent {
 
-  constructor(
-    private finLoginService: FinLoginService,
-  ) { }
+  constructor(private router: Router, private finLoginService: FinLoginService) { }
 
-  usuario!: string;
-  senha!: string;
-  private isAuthenticated = false;
+  login: string = '';
+  senha: string = '';
   
-  login(): void {
-  
-    let login = {
-      usuario: this.usuario,
+  logar(): void {
+
+    let dadosLogin = {
+      usuario: this.login,
       senha: this.senha
-    }
+    };
 
-    this.finLoginService.login(login).subscribe({
+    this.finLoginService.login(dadosLogin).subscribe({
       next: (response) => {
-         let retorno = response.data;
-         if(retorno.autenticado){
-            this.isAuthenticated = true;
-         } else {
-             this.isAuthenticated = false;
-         }
+        let retorno = response.data;
+        if(retorno.autenticado){
+          this.finLoginService.setLoggedIn();
+          this.finLoginService.setUserData(retorno.dadosUsuario);
+          this.router.navigate(['/home']);
+        }
+        else
+        {
+
+        }       
       },
       error: (error) => {
         console.error(error);
-        this.isAuthenticated = false;
-      },
+        this.finLoginService.logout();
+      }
     });
   }
 
-  logout(): void {
-    this.isAuthenticated = false;
-  }
 
-  isLoggedIn(): boolean {
-    return this.isAuthenticated;
-  }
 }

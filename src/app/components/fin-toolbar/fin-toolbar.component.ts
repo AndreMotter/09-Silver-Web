@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FinLoginService } from 'src/app/services/fin-login.service';
 
 @Component({
   selector: 'app-fin-toolbar',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class FinToolbarComponent {
 
+  constructor(
+    private finLoginService: FinLoginService,
+    private router: Router
+  ) { }
+
+  sair()
+  {
+    this.finLoginService.logout();
+    this.router.navigate(['/login']);
+  }
 }

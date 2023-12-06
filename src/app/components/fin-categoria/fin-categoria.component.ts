@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FinCategoriaService } from 'src/app/services/fin-categoria.service';
+import { FinLoginService } from 'src/app/services/fin-login.service';
 
 @Component({
   selector: 'app-fin-categoria',
@@ -7,6 +9,15 @@ import { FinCategoriaService } from 'src/app/services/fin-categoria.service';
   styleUrls: ['./fin-categoria.component.css']
 })
 export class FinCategoriaComponent {
+
+  canActivate(): boolean {
+    if (this.finLoginService.isLoggedIn()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
 
   categorias!: any[]; 
   categoria: any = {}; 
@@ -17,6 +28,8 @@ export class FinCategoriaComponent {
 
   constructor(
     private finCategoriaService: FinCategoriaService,
+    private finLoginService: FinLoginService,
+    private router: Router
   ) { }
 
   first: number = 0;
@@ -28,6 +41,7 @@ export class FinCategoriaComponent {
   }
 
   ngOnInit(): void {
+    this.canActivate();
     this.listarCategorias();
   }
 

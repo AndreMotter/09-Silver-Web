@@ -43,6 +43,7 @@ import { FinHomeComponent } from './components/fin-home/fin-home.component';
 import { FinToolbarComponent } from './components/fin-toolbar/fin-toolbar.component';
 import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anual/fin-home-grafico-anual.component';
 import { FinLoginComponent } from './components/fin-login/fin-login.component';
+import { FinLayoutPadraoComponent } from './components/fin-layout-padrao/fin-layout-padrao.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { FinLoginComponent } from './components/fin-login/fin-login.component';
     FinHomeComponent,
     FinToolbarComponent,
     FinHomeGraficoAnualComponent,
-    FinLoginComponent
+    FinLoginComponent,
+    FinLayoutPadraoComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,7 @@ import { FinLoginComponent } from './components/fin-login/fin-login.component';
     CardModule,
     RadioButtonModule,
     FieldsetModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
