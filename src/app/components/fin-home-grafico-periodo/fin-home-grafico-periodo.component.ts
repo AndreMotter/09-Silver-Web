@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FinLoginService } from 'src/app/services/fin-login.service';
 import { FinMovimentacaoService } from 'src/app/services/fin-movimentacao.service';
 
 @Component({
@@ -10,20 +11,29 @@ export class FinHomeGraficoPeriodoComponent {
   
   constructor(
     private finMovimentacaoService: FinMovimentacaoService,
+    private finLoginService: FinLoginService,
   ) { }
 
+  mes_ano!: Date;
   data: any;
   options: any;
   loading: boolean = true;
 
   ngOnInit() {
+    this.mes_ano = new Date();
+    this.carregaGrafico();
+  }
+
+  carregaGrafico(){
+    debugger
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     this.loading = true;
-    this.finMovimentacaoService.resumoMensalFinMovimentacao().subscribe(
+
+    let pes_codigo = Number(this.finLoginService.getUserId());
+    this.finMovimentacaoService.resumoMensalFinMovimentacao(pes_codigo, this.mes_ano).subscribe(
     {
       next: (response) => {
-        debugger
         let dados_grafico = response.data;
         this.data = {
           labels: ['Despesas', 'Receitas'],

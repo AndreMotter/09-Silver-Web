@@ -26,10 +26,6 @@ const routes: Routes = [
       { path: 'fin-categoria', component: FinCategoriaComponent },
       { path: 'fin-movimentacao', component: FinMovimentacaoComponent},
     ]
-  },
-  {
-    path: '**',
-    redirectTo: 'login'
   }
 ];
 

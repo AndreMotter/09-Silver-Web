@@ -34,8 +34,18 @@ export class FinMovimentacaoService {
     return this.http.delete<any>(`${environment.apiUrl}/Fin_Movimentacao/Remover?id=${id}`);
   }
 
-  resumoMensalFinMovimentacao(): Observable<any> {
+  resumoMensalFinMovimentacao(pes_codigo: number, mes_ano: Date): Observable<any> {
+    let mesFormatado = mes_ano.toISOString().split('T')[0];
     let params = new HttpParams();
+    params = params.append('pes_codigo', pes_codigo);
+    params = params.append('mes_ano', mesFormatado);
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/ResumoMensal`,  { params });
+  }
+
+  resumoAnualFinMovimentacao(pes_codigo: number, ano: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('pes_codigo', pes_codigo);
+    params = params.append('ano', ano);
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/ResumoAnual`,  { params });
   }
 }

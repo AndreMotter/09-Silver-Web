@@ -21,6 +21,10 @@ export class FinLoginService {
     return this.dadosUsuario;
   }
 
+  getUserId(): Number { 
+    return this.dadosUsuario.pes_codigo;
+  }
+
   setUserData(dadosUsuario: any): void { 
      this.dadosUsuario = dadosUsuario;
   }

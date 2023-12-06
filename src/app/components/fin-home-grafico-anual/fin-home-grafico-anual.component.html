@@ -1,4 +1,14 @@
 <p><strong>Resumo do Exercício</strong></p>
+<p-inputNumber 
+  [(ngModel)]="ano" 
+  [showButtons]="true" 
+  [minFractionDigits]="0" 
+  [maxFractionDigits]="0"
+  (ngModelChange)=carregaGrafico()>
+</p-inputNumber>
+<div *ngIf="loading" class="p-d-flex p-jc-center p-ai-center" style="text-align: center;">
+    <p-progressSpinner></p-progressSpinner>
+</div>    
 <div class="card">
-    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+    <p-chart *ngIf="!loading" type="bar" [data]="data" [options]="options"></p-chart>
 </div>
