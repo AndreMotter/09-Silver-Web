@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FinLoginService } from 'src/app/services/fin-login.service';
 import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 
 @Component({
@@ -8,12 +10,23 @@ import { FinPessoaService } from 'src/app/services/fin-pessoa.service';
 })
 export class FinPessoaComponent {
 
+  canActivate(): boolean {
+    if (this.finLoginService.isLoggedIn()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+
   loading: boolean = true;
   pessoas!: any[]; 
   pessoa: any = {}; 
 
   constructor(
     private finPessoaService: FinPessoaService,
+    private finLoginService: FinLoginService,
+    private router: Router
   ) { }
 
   first: number = 0;
@@ -26,6 +39,7 @@ export class FinPessoaComponent {
 
   ngOnInit(): void {
      this.listarPessoas();
+     this.canActivate();
   }
 
   fil_ativo: number = 0;

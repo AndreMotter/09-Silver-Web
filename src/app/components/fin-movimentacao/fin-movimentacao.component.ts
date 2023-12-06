@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FinLoginService } from 'src/app/services/fin-login.service';
 import { FinMovimentacaoService } from 'src/app/services/fin-movimentacao.service';
 
 @Component({
@@ -8,8 +10,19 @@ import { FinMovimentacaoService } from 'src/app/services/fin-movimentacao.servic
 })
 export class FinMovimentacaoComponent {
 
+  canActivate(): boolean {
+    if (this.finLoginService.isLoggedIn()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+  
   constructor(
     private finMovimentacaoService: FinMovimentacaoService,
+    private finLoginService: FinLoginService,
+    private router: Router
   ) { }
 
   movimentacoes!: any[]; 
@@ -21,6 +34,7 @@ export class FinMovimentacaoComponent {
 
   ngOnInit(): void {
     this.listarMovimentacoes();
+    this.canActivate();
   }
 
   listarMovimentacoes(): void {
