@@ -11,11 +11,13 @@ export class FinMovimentacaoService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinMovimentacoes(filtro_mov_tipo: number, pes_codigo: number, filtro_categoria_selecionada: any): Observable<any> {
+  listarFinMovimentacoes(filtro_mov_tipo: number, pes_codigo: number, filtro_categoria_selecionada: any, data_inicial: any, data_final: any): Observable<any> {
     let params = new HttpParams();
     params = params.set('mov_tipo', filtro_mov_tipo || 0);
     params = params.set('pes_codigo', pes_codigo);
     if(filtro_categoria_selecionada) { params = params.set('cat_codigo', filtro_categoria_selecionada.value); } else { params = params.set('cat_codigo', 0); }
+    if(data_inicial) {params = params.set('data_inicial', data_inicial);}
+    if(data_final) {params = params.set('data_final', data_final);}
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/Lista`,  { params });
   }
 
@@ -50,9 +52,13 @@ export class FinMovimentacaoService {
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/ResumoAnual`,  { params });
   }
 
-  imprimirFinMovimentacao(pes_codigo: number): Observable<any> {
+  imprimirFinMovimentacao(filtro_mov_tipo: number, pes_codigo: number, filtro_categoria_selecionada: any, data_inicial: any, data_final: any): Observable<any> {
     let params = new HttpParams();
-    params = params.append('pes_codigo', pes_codigo);
+    params = params.set('mov_tipo', filtro_mov_tipo || 0);
+    params = params.set('pes_codigo', pes_codigo);
+    if(filtro_categoria_selecionada) { params = params.set('cat_codigo', filtro_categoria_selecionada.value); } else { params = params.set('cat_codigo', 0); }
+    if(data_inicial) {params = params.set('data_inicial', data_inicial);}
+    if(data_final) {params = params.set('data_final', data_final);}
     return this.http.get<any>(`${environment.apiUrl}/Fin_relatorios/ImprimirMovimentos`,  { params });
   }
 }

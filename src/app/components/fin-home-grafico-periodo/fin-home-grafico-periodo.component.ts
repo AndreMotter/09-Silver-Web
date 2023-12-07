@@ -19,6 +19,10 @@ export class FinHomeGraficoPeriodoComponent {
   options: any;
   loading: boolean = true;
 
+  receitas!: any;
+  despesas!: any;
+  saldo!: any;
+
   ngOnInit() {
     this.mes_ano = new Date();
     this.carregaGrafico();
@@ -34,6 +38,10 @@ export class FinHomeGraficoPeriodoComponent {
     {
       next: (response) => {
         let dados_grafico = response.data;
+        this.receitas = dados_grafico.receitas;
+        this.despesas = dados_grafico.despesas;
+        this.saldo = dados_grafico.saldo;
+        
         this.data = {
           labels: ['Despesas', 'Receitas'],
           datasets: [

@@ -16,3 +16,6 @@
 <div class="card flex justify-content-center">
     <p-chart *ngIf="!loading" type="pie" [data]="data" [options]="options"></p-chart>
 </div>
+<p style="color: #4caf50; margin: 2px;"><strong>Receitas: {{ receitas | number:'1.2-2' }}</strong></p>
+<p style="color: #ff4032; margin: 2px;"><strong>Despesas: {{ despesas | number:'1.2-2' }}</strong></p>
+<p style="margin: 2px;"><strong>Saldo Mensal: {{ saldo | number:'1.2-2'}}</strong></p>

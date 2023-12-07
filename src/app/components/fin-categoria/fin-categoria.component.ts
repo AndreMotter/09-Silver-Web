@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FinCategoriaService } from 'src/app/services/fin-categoria.service';
 import { FinLoginService } from 'src/app/services/fin-login.service';
@@ -21,11 +21,6 @@ export class FinCategoriaComponent {
 
   categorias!: any[]; 
   categoria: any = {}; 
-  selecionado_cat_tipo: any;
-  cat_tipos: any = [
-    { label: 'Despesas', value: 0 },
-    { label: 'Receitas', value: 1 }
-  ];
 
   constructor(
     private finCategoriaService: FinCategoriaService,
@@ -58,7 +53,6 @@ export class FinCategoriaComponent {
       {
         next: (response) => {
           this.categoria = response.data;
-          this.selecionado_cat_tipo = this.cat_tipos.find((option : any) => option.value === this.categoria.cat_tipo);
           this.displayModal = true;
         },
         error: (error) => {
@@ -100,7 +94,7 @@ export class FinCategoriaComponent {
   }
   
   salvar() {
-    this.categoria.cat_tipo = this.selecionado_cat_tipo.value;
+    debugger
     this.categoria.pes_codigo = Number(this.finLoginService.getUserId());
     this.finCategoriaService.salvarFinCategoria(this.categoria).subscribe({
       next: () => {

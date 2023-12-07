@@ -38,8 +38,8 @@ export class FinMovimentacaoComponent {
   }
 
   filtro_mov_tipo: number = 9999;
-  fitro_data_inicial: Date | undefined;
-  filtro_data_final: Date | undefined;
+  filtro_data_inicial!: any;
+  filtro_data_final!: any;
   filtro_categorias: SelectItem[] = [{
     label: 'Nenhum...', 
     value: 0, 
@@ -48,7 +48,15 @@ export class FinMovimentacaoComponent {
   listarMovimentacoes(): void {
     this.loading = true;
     let pes_codigo = Number(this.finLoginService.getUserId());
-    this.finMovimentacaoService.listarFinMovimentacoes(this.filtro_mov_tipo, pes_codigo, this.filtro_categoria_selecionada).subscribe(
+    let data_inicial = '';
+    if(this.filtro_data_inicial){
+      data_inicial = this.formataData1(this.filtro_data_inicial);
+    }
+    let data_final = '';
+    if(this.filtro_data_final){
+      data_final = this.formataData1(this.filtro_data_final);
+    }
+    this.finMovimentacaoService.listarFinMovimentacoes(this.filtro_mov_tipo, pes_codigo, this.filtro_categoria_selecionada, data_inicial, data_final).subscribe(
       {
         next: (response) => {
           this.movimentacoes = response.data;
@@ -64,7 +72,15 @@ export class FinMovimentacaoComponent {
   imprimirMovimentacoes(): void {
     this.displayRelatorio = true;
     let pes_codigo = Number(this.finLoginService.getUserId());
-    this.finMovimentacaoService.imprimirFinMovimentacao(pes_codigo).subscribe({
+    let data_inicial = '';
+    if(this.filtro_data_inicial){
+      data_inicial = this.formataData1(this.filtro_data_inicial);
+    }
+    let data_final = '';
+    if(this.filtro_data_final){
+      data_final = this.formataData1(this.filtro_data_final);
+    }
+    this.finMovimentacaoService.imprimirFinMovimentacao(this.filtro_mov_tipo, pes_codigo, this.filtro_categoria_selecionada, data_inicial, data_final).subscribe({
       next: (response) => {
         let arrrayBuffer = this.base64ToArrayBuffer(response.data);
         let blob = new Blob([arrrayBuffer], { type: "application/pdf" });
@@ -175,5 +191,47 @@ export class FinMovimentacaoComponent {
         bytes[i] = ascii;
     }
     return bytes;
+ }
+
+ dataMudaInicial(event: any) {
+  let value = event.target.value;
+  let formattedValue = value.replace(/[^0-9]/g, '').substring(0, 8); 
+  if (formattedValue.length >= 2) {
+      formattedValue = formattedValue.substring(0, 2) + '/' + formattedValue.substring(2);
+  }
+  if (formattedValue.length >= 5) {
+      formattedValue = formattedValue.substring(0, 5) + '/' + formattedValue.substring(5);
+  }
+
+  this.filtro_data_inicial = formattedValue; 
+}
+
+dataMudaFinal(event: any) {
+  let value = event.target.value;
+  let formattedValue = value.replace(/[^0-9]/g, '').substring(0, 8); 
+  if (formattedValue.length >= 2) {
+      formattedValue = formattedValue.substring(0, 2) + '/' + formattedValue.substring(2);
+  }
+  if (formattedValue.length >= 5) {
+      formattedValue = formattedValue.substring(0, 5) + '/' + formattedValue.substring(5);
+  }
+
+  this.filtro_data_final = formattedValue; 
+}
+
+formataData1(dateString: string): string {
+  let parts = dateString.split('/');
+  if (parts.length === 3) {
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  }
+  return dateString; 
+}
+
+formataData2(isoString: string): string {
+  let date = new Date(isoString);
+  let day = ('0' + date.getDate()).slice(-2); 
+  let month = ('0' + (date.getMonth() + 1)).slice(-2); 
+  let year = date.getFullYear(); 
+  return `${day}/${month}/${year}`;
 }
 }

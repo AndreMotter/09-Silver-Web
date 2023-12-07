@@ -8,11 +8,11 @@
     </div>
     <div class="field col-12 md:col-2">
         <label style="margin-right: 3px;" for="firstname6">Data Inicial</label>
-        <p-calendar [(ngModel)]="fitro_data_inicial" [showIcon]="true"></p-calendar>
+        <input type="text" pInputText style="margin-top:28px;" [(ngModel)]="filtro_data_inicial" (keyup)="dataMudaInicial($event)" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy" />
     </div>
     <div class="field col-12 md:col-2">
         <label style="margin-right: 3px;" for="lastname6">Data Final</label>
-        <p-calendar [(ngModel)]="filtro_data_final" [showIcon]="true"></p-calendar>
+        <input type="text" pInputText style="margin-top:28px;" [(ngModel)]="filtro_data_final" (keyup)="dataMudaFinal($event)" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy" />
     </div>
     <div class="field col-12 md:col-2">
       <label for="firstname6">Categoria</label>

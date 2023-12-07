@@ -52,8 +52,17 @@
   <div class="p-fluid">
     <div class="p-field" style="margin-top: 10px;">
       <label for="nome">Tipo</label>
-      <p-dropdown [options]="cat_tipos" [(ngModel)]="selecionado_cat_tipo" placeholder="Tipo Categoria"
-        optionLabel="label"></p-dropdown>
+        <div class="flex flex-wrap gap-3" style="margin-top: 10px;">
+          <div class="flex align-items-center">
+            <p-radioButton value=0 [(ngModel)]="categoria.cat_tipo"></p-radioButton>
+            <label class="ml-2">Despesa</label>
+          </div>
+
+          <div class="flex align-items-center">
+            <p-radioButton value=1 [(ngModel)]="categoria.cat_tipo"></p-radioButton>
+            <label class="ml-2">Receita</label>
+          </div>
+      </div>
     </div>
     <div class="p-field" style="margin-top: 10px;">
       <label for="nome">Sigla</label>
