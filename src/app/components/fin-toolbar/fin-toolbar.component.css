@@ -1,0 +1,28 @@
+
+.toolbar {
+    background-color: #FFF; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: #2196F3;
+    font-size: 20px; 
+}
+
+.logo-text {
+    margin-left: 5px;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.user-name {
+    margin-left: 5px;
+}

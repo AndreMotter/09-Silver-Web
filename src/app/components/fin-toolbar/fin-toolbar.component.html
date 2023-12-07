@@ -1,9 +1,16 @@
 <p-toolbar>
     <ng-template pTemplate="start">
-        <p-button icon="pi pi-dollar" label="Silver Finanças" ></p-button>
+        <div class="logo">
+            <i class="pi pi-dollar"></i>
+            <span class="logo-text">Silver Finanças</span>
+        </div>
         <p-button [ngStyle]="{'margin-left': '10px'}" icon="pi pi-home" label="Home" routerLink="/home"></p-button>
     </ng-template>
     <ng-template pTemplate="end">
-        <p-button severity="danger" icon="pi pi-sign-out" (click)="sair()" label="Sair"></p-button> 
+        <div class="user-info">
+            <i class="pi pi-user"></i>
+            <span class="user-name">{{ usuario_logado }}</span>
+        </div>
+        <p-button severity="danger" icon="pi pi-sign-out" (click)="sair()" label="Sair"></p-button>
     </ng-template>
 </p-toolbar>

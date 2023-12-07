@@ -19,4 +19,9 @@ export class FinToolbarComponent {
     this.finLoginService.logout();
     this.router.navigate(['/login']);
   }
+
+  usuario_logado: string = '';
+  ngOnInit(): void {
+    this.usuario_logado = this.finLoginService.getUserData().pes_login;
+  }
 }

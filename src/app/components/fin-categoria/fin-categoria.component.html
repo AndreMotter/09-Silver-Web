@@ -1,12 +1,15 @@
 <div style="margin-top: 20px;"></div>
 <p-fieldset icon="pi pi-pencil" legend="Gerenciamento de Categorias">
   <div class="grid">
-    <div class="col-12">
+    <div class="col-10">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" placeholder="Sigla" (keydown.enter)="listarCategorias()" pInputText
+        <input type="text" placeholder="Sigla" pInputText
           [(ngModel)]="cat_sigla" />
       </span>
+    </div>
+    <div class="field col-12 md:col-2" style="text-align: right">
+      <p-button severity="secondary" icon="pi pi-search" label="Buscar Registros" (click)="listarCategorias()"></p-button>
     </div>
   </div>
   <div class="grid">
@@ -36,36 +39,42 @@
             <button pButton type="button" icon="pi pi-pencil" label="Editar"
               class="p-button-rounded p-button-success p-mr-3" (click)="editar(categoria.cat_codigo)"></button>
             <button style="margin-left: 10px;" pButton type="button" icon="pi pi-trash" label="Excluir"
-              class="p-button-rounded p-button-danger" (click)="excluir(categoria.cat_codigo)"></button>
+              class="p-button-rounded p-button-danger" (click)="confirmarExclusao(categoria.cat_codigo)"></button>
           </td>
         </tr>
       </ng-template>
     </p-table>
-    <div class="card flex justify-content-left">
-      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 50, 100]"></p-paginator>
-    </div>
   </div>
 </p-fieldset>
 
 <p-dialog header="Incluir/Alterar Categoria" [(visible)]="displayModal" [modal]="true" [responsive]="true"
   [style]="{width: '50vw'}">
-  <form #pessoaForm="ngForm">
-    <div class="p-fluid">
-      <div class="p-field">
-        <label for="nome">Sigla</label>
-        <input type="text" id="nome" pInputText [(ngModel)]="categoria.cat_sigla" name="nome" required />
-      </div>
-      <div class="p-field">
-        <label for="login">Descrição</label>
-        <input type="text" id="login" pInputText [(ngModel)]="categoria.cat_descricao" name="login" required />
-      </div>
-      <div class="p-field">
-        <p-dropdown [options]="tiposCategorias" [(ngModel)]="categoria.cat_tipo" placeholder="Tipo Categoria"
-          optionLabel="name"></p-dropdown>
-      </div>
+  <div class="p-fluid">
+    <div class="p-field" style="margin-top: 10px;">
+      <label for="nome">Tipo</label>
+      <p-dropdown [options]="cat_tipos" [(ngModel)]="selecionado_cat_tipo" placeholder="Tipo Categoria"
+        optionLabel="label"></p-dropdown>
     </div>
-    <p-footer>
-      <button type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
-    </p-footer>
-  </form>
+    <div class="p-field" style="margin-top: 10px;">
+      <label for="nome">Sigla</label>
+      <input type="text" id="nome" pInputText [(ngModel)]="categoria.cat_sigla" name="nome" />
+    </div>
+    <div class="p-field" style="margin-top: 10px;">
+      <label for="login">Descrição</label>
+      <input type="text" id="login" pInputText [(ngModel)]="categoria.cat_descricao" name="login" />
+    </div>
+  </div>
+  <p-footer>
+    <button style="margin-top: 10px;" type="button" pButton label="Salvar" icon="pi pi-check"
+      (click)="salvar()"></button>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Confirmação de Exclusão" [(visible)]="displayConfirmation" [modal]="true" [style]="{width: '50vw'}">
+  <p>Tem certeza que deseja excluir este registro?</p>
+  <p-footer>
+    <button type="button" pButton label="Sim" (click)="excluir()" class="p-button-danger"></button>
+    <button type="button" pButton label="Não" (click)="displayConfirmation=false" class="ui-button-secondary"></button>
+  </p-footer>
 </p-dialog>

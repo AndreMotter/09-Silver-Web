@@ -21,9 +21,10 @@ export class FinCategoriaComponent {
 
   categorias!: any[]; 
   categoria: any = {}; 
-  tiposCategorias: any = [
-    { name: 'Despesas', code: 0 },
-    { name: 'Receitas', code: 1 }
+  selecionado_cat_tipo: any;
+  cat_tipos: any = [
+    { label: 'Despesas', value: 0 },
+    { label: 'Receitas', value: 1 }
   ];
 
   constructor(
@@ -32,14 +33,6 @@ export class FinCategoriaComponent {
     private router: Router
   ) { }
 
-  first: number = 0;
-  rows: number = 10;
-  onPageChange(event: any) {
-      this.first = event.first;
-      this.rows = event.rows;
-      this.listarCategorias();
-  }
-
   ngOnInit(): void {
     this.canActivate();
     this.listarCategorias();
@@ -47,7 +40,8 @@ export class FinCategoriaComponent {
 
   cat_sigla!: string;
   listarCategorias(): void {
-    this.finCategoriaService.listarFinCategorias(this.cat_sigla, this.first, this.rows).subscribe(
+    let pes_codigo = Number(this.finLoginService.getUserId());
+    this.finCategoriaService.listarFinCategorias(pes_codigo, this.cat_sigla).subscribe(
       {
         next: (response) => {
           this.categorias = response.data;
@@ -59,11 +53,13 @@ export class FinCategoriaComponent {
   }
 
   editar(codigo: number) {
+    debugger
     this.finCategoriaService.buscarPorIdFinCategoria(codigo).subscribe(
       {
         next: (response) => {
           this.categoria = response.data;
-          this.abrirModal()
+          this.selecionado_cat_tipo.value = response.data.cat_tipo;
+          this.displayModal = true;
         },
         error: (error) => {
           console.error(error);
@@ -71,20 +67,31 @@ export class FinCategoriaComponent {
       });
   }
 
-  excluir(codigo: number) {
-    this.finCategoriaService.deletarFinCategoria(codigo).subscribe(
-      {
-        next: () => {
-          this.listarCategorias();
-        },
-        error: (error) => { 
-          console.error(error);
-        },
-      });
+  displayConfirmation: boolean = false;
+  codigoParaExcluir: number | null = null;
+  confirmarExclusao(codigo: number) {
+    this.codigoParaExcluir = codigo;
+    this.displayConfirmation = true;
+  }
+
+  excluir() {
+    if (this.codigoParaExcluir) {
+      this.finCategoriaService.deletarFinCategoria(this.codigoParaExcluir).subscribe(
+        {
+          next: () => {
+            this.listarCategorias();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
+        this.displayConfirmation = false;
+    }
   }
 
   displayModal: boolean = false;
   abrirModal() {
+    this.categoria = {};
     this.displayModal = true;
   }
 
@@ -93,6 +100,9 @@ export class FinCategoriaComponent {
   }
   
   salvar() {
+    debugger
+    this.categoria.cat_tipo = this.selecionado_cat_tipo.value;
+    this.categoria.pes_codigo = Number(this.finLoginService.getUserId());
     this.finCategoriaService.salvarFinCategoria(this.categoria).subscribe({
       next: () => {
         this.fecharModal();

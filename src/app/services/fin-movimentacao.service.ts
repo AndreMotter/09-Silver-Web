@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FinMovimentacao } from '../models/fin-movimentacao';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,11 +23,11 @@ export class FinMovimentacaoService {
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/BuscaPorId?id=${id}`);
   }
 
-  salvarFinMovimentacao(FinMovimentacao: FinMovimentacao): Observable<any> {
+  salvarFinMovimentacao(FinMovimentacao: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/Fin_Movimentacao/Salvar`, FinMovimentacao);
   }
 
-  alterarFinMovimentacao(FinMovimentacao: FinMovimentacao): Observable<any> {
+  alterarFinMovimentacao(FinMovimentacao: any): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/${FinMovimentacao.pes_codigo}`, FinMovimentacao);
   }
 
