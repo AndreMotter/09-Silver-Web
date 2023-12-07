@@ -2,17 +2,20 @@
 <p-fieldset icon="pi pi-pencil" legend="Gerenciamento de Pessoas">
   
   <div class="grid">
-    <div class="col-2">
+    <div class="field col-12 md:col-2">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input placeholder="Nome" type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_nome" />
+        <input placeholder="Nome" type="text" pInputText [(ngModel)]="fil_nome" />
       </span>
     </div>
-    <div class="col-2">
+    <div class="field col-12 md:col-2">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input placeholder="Cpf/Cnpj" type="text" (keydown.enter)="listarPessoas()" pInputText [(ngModel)]="fil_cpf" />
+        <input placeholder="Cpf/Cnpj" type="text" pInputText [(ngModel)]="fil_cpf" />
       </span>
+    </div>
+    <div class="field col-12 md:col-8" style="margin-top: 10px; text-align: right">
+      <p-button severity="secondary" icon="pi pi-search" label="Buscar Registros" (click)="listarPessoas()"></p-button>
     </div>
   </div>
 
@@ -40,64 +43,57 @@
       </ng-template>
       <ng-template pTemplate="body" let-pessoa>
         <tr>
-          <td>{{ pessoa.pes_codigo }}</td>
-          <td>{{ pessoa.pes_nome }}</td>
-          <td>{{ pessoa.pes_cpf }}</td>
-          <td>{{ pessoa.pes_email }}</td>
-          <td>{{ pessoa.pes_ativo ? 'Sim' : 'Não'}}</td>
-          <td>{{ pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}}</td>
-          <td>
+          <td style="width: 10%;">{{ pessoa.pes_codigo }}</td>
+          <td style="width: 20%;">{{ pessoa.pes_nome }}</td>
+          <td style="width: 15%;">{{ pessoa.pes_cpf }}</td>
+          <td style="width: 15%;">{{ pessoa.pes_email }}</td>
+          <td style="width: 10%;">{{ pessoa.pes_ativo ? 'Sim' : 'Não'}}</td>
+          <td style="width: 10%;">{{ pessoa.pes_data_nascimento | date:'dd/MM/yyyy'}}</td>
+          <td style="width: 20%;">
             <button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-rounded p-button-success p-mr-3" (click)="editar(pessoa.pes_codigo)"></button>
             <button pButton style="margin-left: 10px;" type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger" (click)="confirmarExclusao(pessoa.pes_codigo)"></button>
           </td>
         </tr>
       </ng-template>
     </p-table>
-    <div class="card flex justify-content-left">
-      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 50, 100]"></p-paginator>
-    </div>
   </div>
 </p-fieldset>
 
 <p-dialog header="Incluir/Alterar Pessoa" [(visible)]="displayModal" [modal]="true" [responsive]="true"
   [style]="{width: '50vw'}">
-  <form #pessoaForm="ngForm">
     <div class="p-fluid">
-      <div class="p-field">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" pInputText [(ngModel)]="pessoa.pes_nome" name="nome" required />
-      </div>
-      <div class="p-field">
-        <label for="login">Login</label>
-        <input type="text" id="login" pInputText [(ngModel)]="pessoa.pes_login" name="login" required />
-      </div>
-      <div class="p-field">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" pInputText [(ngModel)]="pessoa.pes_senha" name="senha" required />
-      </div>
-      <div class="p-field">
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" pInputText [(ngModel)]="pessoa.pes_cpf" name="cpf" required />
-      </div>
-      <div class="p-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" pInputText [(ngModel)]="pessoa.pes_email" name="email" required />
-      </div>
-      <div class="p-formgrid p-grid">
-        <div class="p-field-checkbox p-col-12 p-md-6" style="margin-top: 10px;">
-          <p-checkbox [binary]="true" [(ngModel)]="pessoa.pes_ativo" name="ativo"></p-checkbox>
-          <label for="ativo">Ativo</label>
+      <div class="grid">
+        <div class="field col-12 md:col-4">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" pInputText [(ngModel)]="pessoa.pes_nome" name="nome" />
         </div>
-        <div class="p-field p-col-12 p-md-6">
+        <div class="field col-12 md:col-4">
+          <label for="cpf">CPF</label>
+          <input type="text" id="cpf" pInputText [(ngModel)]="pessoa.pes_cpf" name="cpf" />
+        </div>
+        <div class="field col-12 md:col-4">
           <label for="dataNascimento">Data de Nascimento</label>
-          <p-calendar [(ngModel)]="pessoa.pes_data_nascimento" name="dataNascimento" [style]="{maxWidth: '250px'}" [showIcon]="true"></p-calendar>
+          <input type="text" pInputText [(ngModel)]="pessoa.pes_data_nascimento" (keyup)="dataMuda($event)" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy" />
         </div>
-      </div>      
+      </div>
+      <div class="grid">
+        <div class="field col-12 md:col-4">
+          <label for="email">Email</label>
+          <input type="email" id="email" pInputText [(ngModel)]="pessoa.pes_email" name="email" />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="login">Login</label>
+          <input type="text" id="login" pInputText [(ngModel)]="pessoa.pes_login" name="login" />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" pInputText [(ngModel)]="pessoa.pes_senha" name="senha" />
+        </div>
+      </div>
     </div>
     <p-footer>
-      <button style="margin-top: 10px;" type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
+      <button type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
     </p-footer>
-  </form>
 </p-dialog>
 
 <p-dialog header="Confirmação de Exclusão" [(visible)]="displayConfirmation" [modal]="true" [style]="{width: '50vw'}">

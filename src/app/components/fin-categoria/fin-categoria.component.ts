@@ -58,7 +58,7 @@ export class FinCategoriaComponent {
       {
         next: (response) => {
           this.categoria = response.data;
-          this.selecionado_cat_tipo.value = response.data.cat_tipo;
+          this.selecionado_cat_tipo = this.cat_tipos.find((option : any) => option.value === this.categoria.cat_tipo);
           this.displayModal = true;
         },
         error: (error) => {
@@ -100,7 +100,6 @@ export class FinCategoriaComponent {
   }
   
   salvar() {
-    debugger
     this.categoria.cat_tipo = this.selecionado_cat_tipo.value;
     this.categoria.pes_codigo = Number(this.finLoginService.getUserId());
     this.finCategoriaService.salvarFinCategoria(this.categoria).subscribe({
