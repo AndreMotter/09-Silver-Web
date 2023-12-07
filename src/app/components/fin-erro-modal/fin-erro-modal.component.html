@@ -1,0 +1,11 @@
+<p-dialog header="Atenção" [(visible)]="isVisible" [modal]="true" [style]="{width: '500px'}">
+    <div style="text-align: center;">
+        <div class="p-d-flex p-ai-center">
+            <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 100px; color: red;"></i>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Fechar" (click)="close()"></button>
+    </p-footer>
+</p-dialog>

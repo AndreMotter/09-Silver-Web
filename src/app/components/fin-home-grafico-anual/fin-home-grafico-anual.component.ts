@@ -98,4 +98,35 @@ export class FinHomeGraficoAnualComponent {
     };
 
   }
+
+  displayRelatorio: boolean = false;
+  imprimirResumoExercicio(): void {
+    this.displayRelatorio = true;
+    let pes_codigo = Number(this.finLoginService.getUserId());
+    this.finMovimentacaoService.imprimirResumoExercicioFinMovimentacao(pes_codigo, this.ano).subscribe({
+      next: (response) => {
+        let arrrayBuffer = this.base64ToArrayBuffer(response.data);
+        let blob = new Blob([arrrayBuffer], { type: "application/pdf" });
+        let link = window.URL.createObjectURL(blob);
+        window.open(link, '_blank');
+        this.displayRelatorio = false;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  base64ToArrayBuffer(base64: any) {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+    }
+    return bytes;
+ }
+
+
 }

@@ -1,14 +1,24 @@
 <p><strong>Resumo do Exercício</strong></p>
-<p-inputNumber 
-  [(ngModel)]="ano" 
-  [showButtons]="true" 
-  [minFractionDigits]="0" 
-  [maxFractionDigits]="0"
-  (ngModelChange)=carregaGrafico()>
-</p-inputNumber>
-<div *ngIf="loading" class="p-d-flex p-jc-center p-ai-center" style="text-align: center;">
-    <p-progressSpinner></p-progressSpinner>
-</div>    
-<div class="card">
-    <p-chart *ngIf="!loading" type="bar" [data]="data" [options]="options"></p-chart>
+<div class="grid">
+  <div class="field col-12 md:col-6">
+    <p-inputNumber [(ngModel)]="ano" [showButtons]="true" [minFractionDigits]="0" [maxFractionDigits]="0"
+      (ngModelChange)=carregaGrafico()>
+    </p-inputNumber>
+  </div>
+  <div class="field col-12 md:col-6" style="text-align: right">
+      <p-button severity="secondary" (click)="imprimirResumoExercicio()" [style]="{width: '300px'}" icon="pi pi-print" label="Imprimir Resumo Exercício"></p-button>
+  </div>
 </div>
+<div *ngIf="loading" class="p-d-flex p-jc-center p-ai-center" style="text-align: center;">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="card">
+  <p-chart *ngIf="!loading" type="bar" [data]="data" [options]="options"></p-chart>
+</div>
+
+
+<p-dialog header="Aguarde, gerando relatório..." [(visible)]="displayRelatorio" [modal]="true" [closable]="false" [style]="{width: '340px'}">
+  <div class="p-text-center" style="text-align: center;">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</p-dialog>

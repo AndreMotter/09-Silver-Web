@@ -45,6 +45,7 @@ import { FinHomeGraficoAnualComponent } from './components/fin-home-grafico-anua
 import { FinLoginComponent } from './components/fin-login/fin-login.component';
 import { FinLayoutPadraoComponent } from './components/fin-layout-padrao/fin-layout-padrao.component';
 import { FinContaBancariaComponent } from './components/fin-conta-bancaria/fin-conta-bancaria.component';
+import { FinErroModalComponent } from './components/fin-erro-modal/fin-erro-modal.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { FinContaBancariaComponent } from './components/fin-conta-bancaria/fin-c
     FinHomeGraficoAnualComponent,
     FinLoginComponent,
     FinLayoutPadraoComponent,
-    FinContaBancariaComponent
+    FinContaBancariaComponent,
+    FinErroModalComponent
   ],
   imports: [
     BrowserModule,

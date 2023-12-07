@@ -4,7 +4,7 @@
  
   <div class="grid">
     <div class="field col-12 md:col-2" style="margin-top: 28px;">
-      <p-button icon="pi pi-print" label="Imprimir Movimentos" (click)="imprimirMovimentacoes()"></p-button>
+      <p-button severity="secondary" icon="pi pi-print" label="Imprimir Movimentos" (click)="imprimirMovimentacoes()"></p-button>
     </div>
     <div class="field col-12 md:col-2">
         <label style="margin-right: 3px;" for="firstname6">Data Inicial</label>
@@ -17,7 +17,7 @@
     <div class="field col-12 md:col-2">
       <label for="firstname6">Categoria</label>
       <div class="d-flex flex-column align-items-start">
-        <p-dropdown [options]="filtro_categorias" [(ngModel)]="filtro_categoria_selecionada" optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
+        <p-dropdown [options]="lista_categorias" [(ngModel)]="filtro_categoria_selecionada" optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
       </div>
     </div>
    <div class="field col-12 md:col-2" style="margin-top: 35px;">
@@ -59,6 +59,7 @@
           <th style="width: 5%;">Código</th>
           <th style="width: 15%;">Categoria</th>
           <th style="width: 15%;">Conta Bancária</th>
+          <th style="width: 15%;">Observação</th>
           <th style="width: 10%;">Data</th>
           <th style="width: 10%;">Tipo</th>
           <th style="width: 10%;">Valor</th>
@@ -67,15 +68,15 @@
       </ng-template>
       <ng-template pTemplate="body" let-movimentacao>
         <tr>
-          <td>{{ movimentacao.mov_codigo }}</td>
-          <td>{{ movimentacao.fin_Categoria.cat_sigla }}</td>
-          <td>{{ movimentacao.fin_contaBancaria.cba_descricao }}</td>
-          <td>{{ movimentacao.mov_data | date:'dd/MM/yyyy'}}</td>
-          <td>{{ movimentacao.mov_tipo == 0 ? 'Despesa' : 'Receita' }}</td>
-          <td>{{ movimentacao.mov_valor | number:'1.2-2'}}</td>
-          <td>
-            <button pButton type="button" icon="pi pi-pencil" label="Editar" class="p-button-rounded p-button-success p-mr-3" (click)="editar(movimentacao.mov_codigo)"></button>
-            <button pButton style="margin-left: 10px;" type="button" icon="pi pi-trash" label="Excluir" class="p-button-rounded p-button-danger" (click)="confirmarExclusao(movimentacao.mov_codigo)"></button>
+          <td style="width: 10%;">{{ movimentacao.mov_codigo }}</td>
+          <td style="width: 15%;">{{ movimentacao.fin_Categoria.cat_sigla }}</td>
+          <td style="width: 15%;">{{ movimentacao.fin_contaBancaria.cba_descricao }}</td>
+          <td style="width: 20%;">{{ movimentacao.mov_observacao }}</td>
+          <td style="width: 10%;">{{ movimentacao.mov_data | date:'dd/MM/yyyy'}}</td>
+          <td style="width: 10%;" >{{ movimentacao.mov_tipo == 0 ? 'Despesa' : 'Receita' }}</td>
+          <td style="width: 10%;">{{ movimentacao.mov_valor | number:'1.2-2'}}</td>
+          <td style="width: 10%;">
+            <button pButton style="margin-left: 10px;" type="button" icon="pi pi-trash" label="Estornar" class="p-button-rounded p-button-danger" (click)="confirmarExclusao(movimentacao.mov_codigo)"></button>
           </td>
         </tr>
       </ng-template>
@@ -88,40 +89,45 @@
     <div class="field col-12 md:col-4">
       <label for="mov_valor">Valor</label>
       <div class="flex flex-col">
-        <p-inputNumber [(ngModel)]="movimentacao.mov_valor" id="mov_valor" [minFractionDigits]="2"></p-inputNumber>
+        <p-inputNumber [style]="{'width':'260px'}" [(ngModel)]="movimentacao.mov_valor" id="mov_valor" [minFractionDigits]="2"></p-inputNumber>
       </div>
     </div>
-
     <div class="field col-12 md:col-4">
-      <label for="mov_tipo">Tipo</label>
-      <div class="flex flex-col">
-        <p-dropdown [options]="mov_tipos" [(ngModel)]="movimentacao.mov_tipo" optionLabel="label" placeholder="Selecione um tipo" [style]="{ 'width': '250px' }"></p-dropdown>
+      <label for="nome">Tipo</label>
+        <div class="flex flex-wrap gap-3" style="margin-top: 10px;">
+          <div class="flex align-items-center">
+            <p-radioButton value=0 [(ngModel)]="movimentacao.mov_tipo"></p-radioButton>
+            <label class="ml-2">Despesa</label>
+          </div>
+
+          <div class="flex align-items-center">
+            <p-radioButton value=1 [(ngModel)]="movimentacao.mov_tipo"></p-radioButton>
+            <label class="ml-2">Receita</label>
+          </div>
       </div>
     </div>
-
     <div class="field col-12 md:col-4">
-      <label for="mov_data">Data Lançamento</label>
-      <div class="flex flex-col">
-        <p-calendar [(ngModel)]="movimentacao.mov_data" [showIcon]="true"></p-calendar>
-      </div>
+      <label for="dataNascimento">Data Lançamento</label>
+      <input type="text" pInputText [(ngModel)]="movimentacao.mov_data_sem_formatar" (keyup)="dataMudaLanc($event)"
+        pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy" [style]="{'width':'242px'}"/>
     </div>
-    <!-- <div class="field col-12 md:col-6">
-      <label for="cat_codigo">Categoria</label>
-      <div class="d-flex flex-column align-items-start">
-        <p-dropdown [options]="categorias" [(ngModel)]="movimentacao.cat_codigo" optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
-      </div>
-    </div> -->
-
     <div class="field col-12 md:col-6">
       <label for="cba_codigo">Conta Bancária</label>
       <div class="d-flex flex-column align-items-start">
-        <p-dropdown [options]="outroscampos" [(ngModel)]="movimentacao.cba_codigo" optionLabel="label" [style]="{'width':'250px'}"></p-dropdown>
+        <p-dropdown [options]="lista_contas_bancarias" [(ngModel)]="movimentacao.cba_codigo" optionLabel="label" [style]="{'width':'400px'}"></p-dropdown>
+      </div>
+    </div>
+    <div class="field col-12 md:col-6">
+      <label for="cba_codigo">Categoria</label>
+      <div class="d-flex flex-column align-items-start">
+        <p-dropdown [options]="lista_categorias" [(ngModel)]="movimentacao.cat_codigo" optionLabel="label" [style]="{'width':'400px'}"></p-dropdown>
       </div>
     </div>
     <div class="field col-12">
       <label for="address">Observação</label>
-      <textarea id="address" type="text" rows="4" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-  </div>
+      <textarea id="address" type="text" rows="4"
+      [(ngModel)]="movimentacao.mov_observacao" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+    </div>
   </div>
   <p-footer>
     <button style="margin-top: 10px;" type="button" pButton label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
@@ -129,7 +135,7 @@
 </p-dialog>
 
 <p-dialog header="Confirmação de Exclusão" [(visible)]="displayConfirmation" [modal]="true" [style]="{width: '50vw'}">
-  <p>Tem certeza que deseja excluir este registro?</p>
+  <p>Tem certeza que deseja estornar este registro?</p>
   <p-footer>
     <button type="button" pButton label="Sim" (click)="excluir()" class="p-button-danger"></button>
     <button type="button" pButton label="Não" (click)="displayConfirmation=false" class="ui-button-secondary"></button>

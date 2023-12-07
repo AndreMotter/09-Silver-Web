@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FinLoginService } from 'src/app/services/fin-login.service';
 import { Router } from '@angular/router';
+import { FinErroModalComponent } from '../fin-erro-modal/fin-erro-modal.component';
 
 @Component({
   selector: 'app-fin-login',
@@ -11,8 +12,8 @@ export class FinLoginComponent {
 
   constructor(private router: Router, private finLoginService: FinLoginService) { }
 
-  login: string = 'andre';
-  senha: string = '12345';
+  login: string = '';
+  senha: string = '';
   
   logar(): void {
 
@@ -31,7 +32,7 @@ export class FinLoginComponent {
         }
         else
         {
-
+          this.alertaErro('Usuário ou senha incorretos.');
         }       
       },
       error: (error) => {
@@ -42,4 +43,9 @@ export class FinLoginComponent {
   }
 
 
+  @ViewChild('errorModal')errorModal!: FinErroModalComponent;
+  alertaErro(message: string) {
+    this.errorModal.message = message;
+    this.errorModal.open();
+  }
 }

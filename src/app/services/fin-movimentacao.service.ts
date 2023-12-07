@@ -61,4 +61,11 @@ export class FinMovimentacaoService {
     if(data_final) {params = params.set('data_final', data_final);}
     return this.http.get<any>(`${environment.apiUrl}/Fin_relatorios/ImprimirMovimentos`,  { params });
   }
+
+  imprimirResumoExercicioFinMovimentacao(pes_codigo: number, ano: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('pes_codigo', pes_codigo);
+    params = params.append('ano', ano);
+    return this.http.get<any>(`${environment.apiUrl}/Fin_relatorios/ImprimirResumoExercicio`,  { params });
+  }
 }
