@@ -35,7 +35,6 @@ export class FinHomeGraficoAnualComponent {
     this.finMovimentacaoService.resumoAnualFinMovimentacao(pes_codigo, this.ano).subscribe(
         {
           next: (response) => {
-            debugger
             let dados_grafico = response.data;
             this.data = {
                 labels: ['Janeiro', 'Feveiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],

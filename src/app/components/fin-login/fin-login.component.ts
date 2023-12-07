@@ -11,8 +11,8 @@ export class FinLoginComponent {
 
   constructor(private router: Router, private finLoginService: FinLoginService) { }
 
-  login: string = '';
-  senha: string = '';
+  login: string = 'andre';
+  senha: string = '12345';
   
   logar(): void {
 

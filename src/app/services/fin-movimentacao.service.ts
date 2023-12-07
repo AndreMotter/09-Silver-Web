@@ -12,9 +12,12 @@ export class FinMovimentacaoService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinMovimentacoes(filtro_mov_tipo: number): Observable<any> {
+  listarFinMovimentacoes(filtro_mov_tipo: number, pes_codigo: number,first: number, rows: number): Observable<any> {
     let params = new HttpParams();
     params = params.set('mov_tipo', filtro_mov_tipo || 0);
+    params = params.set('pes_codigo', pes_codigo);
+    params = params.set('first', first);
+    params = params.set('rows', rows);
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/Lista`,  { params });
   }
 
@@ -47,5 +50,11 @@ export class FinMovimentacaoService {
     params = params.append('pes_codigo', pes_codigo);
     params = params.append('ano', ano);
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/ResumoAnual`,  { params });
+  }
+
+  imprimirFinMovimentacao(pes_codigo: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('pes_codigo', pes_codigo);
+    return this.http.get<any>(`${environment.apiUrl}/Fin_relatorios/ImprimirMovimentos`,  { params });
   }
 }

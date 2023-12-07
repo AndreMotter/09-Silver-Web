@@ -25,7 +25,6 @@ export class FinHomeGraficoPeriodoComponent {
   }
 
   carregaGrafico(){
-    debugger
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     this.loading = true;

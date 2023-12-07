@@ -19,6 +19,12 @@ export class FinCategoriaService {
     return this.http.get<any>(`${environment.apiUrl}/Fin_Categoria/Lista`, {params});
   }
 
+  listarSelectFinCategorias(pes_codigo: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('pes_codigo', pes_codigo);
+    return this.http.get<any>(`${environment.apiUrl}/Fin_Categoria/ListaSelect`, {params});
+  }
+
   buscarPorIdFinCategoria(id: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/Fin_Categoria/BuscaPorId?id=${id}`);
   }

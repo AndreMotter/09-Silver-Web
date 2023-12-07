@@ -24,6 +24,6 @@ export class FinHomeComponent {
   }
 
   ngOnInit(): void {
-    this.canActivate();
+    //this.canActivate();
   }
 }
