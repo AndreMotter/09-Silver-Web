@@ -30,36 +30,25 @@ export class FinMovimentacaoComponent {
 
   loading: boolean = true;
   movimentacoes!: any[]; 
-  movimentacao: any = {}; 
-  displayModal: boolean = false;
-
-  //filtros consulta
-  filtro_mov_tipo!: number;
-  data_inicial: Date | undefined;
-  data_final: Date | undefined;
-
-  first: number = 0;
-  rows: number = 10;
-  onPageChange(event: any) {
-      this.first = event.first;
-      this.rows = event.rows;
-      this.listarMovimentacoes();
-  }
 
   ngOnInit(): void {
-    let dataAtual = new Date();
-    this.data_inicial = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), 1);
-    this.data_final = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 0);
-
     this.canActivate();
     this.listarMovimentacoes();
     this.listarCategoriasSelect();
   }
 
+  filtro_mov_tipo: number = 9999;
+  fitro_data_inicial: Date | undefined;
+  filtro_data_final: Date | undefined;
+  filtro_categorias: SelectItem[] = [{
+    label: 'Nenhum...', 
+    value: 0, 
+  }];
+  filtro_categoria_selecionada: any;
   listarMovimentacoes(): void {
     this.loading = true;
     let pes_codigo = Number(this.finLoginService.getUserId());
-    this.finMovimentacaoService.listarFinMovimentacoes(this.filtro_mov_tipo, pes_codigo, this.first, this.rows).subscribe(
+    this.finMovimentacaoService.listarFinMovimentacoes(this.filtro_mov_tipo, pes_codigo, this.filtro_categoria_selecionada).subscribe(
       {
         next: (response) => {
           this.movimentacoes = response.data;
@@ -89,17 +78,21 @@ export class FinMovimentacaoComponent {
     });
   }
 
-  categorias: SelectItem[] = [];
-  categoria_selecionada: any;
   listarCategoriasSelect(): void{
     let pes_codigo = Number(this.finLoginService.getUserId());
     this.finCategoriaService.listarSelectFinCategorias(pes_codigo).subscribe(
       {
         next: (response) => {
-          this.categorias = response.data.map((categoria: any) => ({
-            label: categoria.cat_sigla, 
-            value: categoria.cat_codigo, 
-          }));
+          this.filtro_categorias = [{
+            label: 'Nenhum...', 
+            value: 0, 
+          }];
+          response.data.forEach((categoria: any)=> {
+            this.filtro_categorias.push({
+              label: categoria.cat_sigla, 
+              value: categoria.cat_codigo, 
+            })
+          });
         },
         error: (error) => {
           console.error(error);
@@ -141,6 +134,17 @@ export class FinMovimentacaoComponent {
         },
       });
   }
+
+  displayModal: boolean = false;
+  movimentacao: any = {};
+  mov_tipos = [
+    { label: 'Receita', value: 1 },
+    { label: 'Despesa', value: 2 }
+  ];
+  outroscampos = [
+    { label: 'Opção 1', value: 1 },
+    { label: 'Opção 2', value: 2 },
+  ];
 
   abrirModal() {
     this.displayModal = true;

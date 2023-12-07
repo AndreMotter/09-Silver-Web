@@ -12,12 +12,11 @@ export class FinMovimentacaoService {
 
   constructor(private http: HttpClient) { }
 
-  listarFinMovimentacoes(filtro_mov_tipo: number, pes_codigo: number,first: number, rows: number): Observable<any> {
+  listarFinMovimentacoes(filtro_mov_tipo: number, pes_codigo: number, filtro_categoria_selecionada: any): Observable<any> {
     let params = new HttpParams();
     params = params.set('mov_tipo', filtro_mov_tipo || 0);
     params = params.set('pes_codigo', pes_codigo);
-    params = params.set('first', first);
-    params = params.set('rows', rows);
+    if(filtro_categoria_selecionada) { params = params.set('cat_codigo', filtro_categoria_selecionada.value); } else { params = params.set('cat_codigo', 0); }
     return this.http.get<any>(`${environment.apiUrl}/Fin_Movimentacao/Lista`,  { params });
   }
 
